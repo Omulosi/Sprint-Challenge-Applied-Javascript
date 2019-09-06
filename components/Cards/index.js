@@ -59,6 +59,7 @@ axios.get(ArticlesAPI)
     for (let article in articles) {
       articles[article].map((articleData) => {
         const card = Card(articleData);
+        card.setAttribute('data-article', article);
         cardsContainer.appendChild(card);
       })
     }

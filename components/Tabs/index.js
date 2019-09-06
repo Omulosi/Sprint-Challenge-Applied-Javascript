@@ -14,6 +14,7 @@ function Tab(topic) {
   const tab = document.createElement('div');
   tab.classList.add('tab');
   tab.textContent = topic;
+  tab.setAttribute('data-topic', topic);
 
   return tab;
 }
