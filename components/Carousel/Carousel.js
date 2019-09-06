@@ -43,20 +43,11 @@ function Carousel() {
 
   // Navigation Event listeners
   rightBtn.addEventListener('click', (e) => {
-    const bigImg = document.querySelector('#big-image');
-    const nextId = (Number(bigImg.dataset.id) + 1) % imgSources.length;
-    const nextimg = imgSources[nextId];
-    bigImg.setAttribute('src', nextimg);
-    bigImg.setAttribute('data-id', nextid);
+    next();
   })
 
   leftBtn.addEventListener('click', (e) => {
-    const bigImg = document.querySelector('#big-image');
-    let prevId = (Number(bigImg.dataset.id) - 1) % imgSources.length;
-    prevId = prevId < 0 ? imgSources.length + prevId : prevId;
-    const previmg = imgSources[prevId];
-    bigImg.setAttribute('src', previmg);
-    bigImg.setAttribute('data-id', prevId);
+    prev();
   })
 
   //
@@ -67,6 +58,24 @@ function Carousel() {
   return carousel;
 }
 
+const next = () => {
+  const bigImg = document.querySelector('#big-image');
+  const nextId = (Number(bigImg.dataset.id) + 1) % imgSources.length;
+  const nextimg = imgSources[nextId];
+  bigImg.setAttribute('src', nextimg);
+  bigImg.setAttribute('data-id', nextId);
+}
+
+const prev = () => {
+  const bigImg = document.querySelector('#big-image');
+  let prevId = (Number(bigImg.dataset.id) - 1) % imgSources.length;
+  prevId = prevId < 0 ? imgSources.length + prevId : prevId;
+  const previmg = imgSources[prevId];
+  bigImg.setAttribute('src', previmg);
+  bigImg.setAttribute('data-id', prevId);
+}
+
 const carouselContainer = document.querySelector('.carousel-container');
 carouselContainer.appendChild(Carousel());
 
+setInterval(next, 2000);
