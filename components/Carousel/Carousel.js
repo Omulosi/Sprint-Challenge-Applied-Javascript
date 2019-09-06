@@ -46,10 +46,17 @@ function Carousel() {
     next();
   })
 
+  rightBtn.addEventListener('click', (e) => {
+    loopRight();
+  })
+
   leftBtn.addEventListener('click', (e) => {
     prev();
   })
 
+  leftBtn.addEventListener('click', (e) => {
+    loopLeft();
+  })
   //
   carousel.appendChild(leftBtn);
   carousel.appendChild(img);
@@ -75,7 +82,14 @@ const prev = () => {
   bigImg.setAttribute('data-id', prevId);
 }
 
+const loopRight = () => {
+  setInterval(next, 2000);
+}
+
+const loopLeft = () => {
+  setInterval(prev, 2000);
+}
+
 const carouselContainer = document.querySelector('.carousel-container');
 carouselContainer.appendChild(Carousel());
 
-setInterval(next, 2000);
