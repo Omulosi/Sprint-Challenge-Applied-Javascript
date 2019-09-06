@@ -16,6 +16,8 @@ function Tab(topic) {
   tab.textContent = topic;
   tab.setAttribute('data-topic', topic);
 
+  tab.addEventListener('click', filterCards);
+
   return tab;
 }
 
@@ -28,3 +30,14 @@ axios.get(API)
       topics.appendChild(Tab(topic));
     })
   })
+
+const filterCards = (e) => {
+  const topic = e.target.dataset.topic;
+  const cards = [...document.querySelectorAll('.card')];
+  cards.forEach((card) => {
+    card.style.display = 'block';
+    if (!topic.includes(card.dataset.article)) {
+      card.style.display = 'none';
+    }
+  })
+}
