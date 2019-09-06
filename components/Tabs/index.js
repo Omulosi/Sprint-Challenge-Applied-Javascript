@@ -18,16 +18,23 @@ function Tab(topic) {
 
   tab.addEventListener('click', filterCards);
 
+  if (topic === 'all') {
+    tab.style.background = '#fff';
+    tab.style.color = '#333';
+    tab.style.border = '1px solid #333';
+  }
+
   return tab;
 }
 
-const topics = document.querySelector('.topics');
+const topicsContainer = document.querySelector('.topics');
 
 axios.get(API)
   .then(response => response.data)
   .then(data => {
-    data.topics.forEach(topic => {
-      topics.appendChild(Tab(topic));
+    const topics = ['all', ...data.topics];
+    topics.forEach(topic => {
+      topicsContainer.appendChild(Tab(topic));
     })
   })
 
@@ -38,6 +45,9 @@ const filterCards = (e) => {
     card.style.display = 'block';
     if (!topic.includes(card.dataset.article)) {
       card.style.display = 'none';
+    }
+    if (topic === 'all'){
+      card.style.display = 'block';
     }
   })
 }
