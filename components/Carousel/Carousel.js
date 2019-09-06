@@ -18,30 +18,55 @@
   </div>
 */
 
+const imgSources = [
+  "./assets/carousel/mountains.jpeg",
+  "./assets/carousel/computer.jpeg",
+  "./assets/carousel/trees.jpeg",
+  "./assets/carousel/turntable.jpeg"
+]
+
 function Carousel() {
   const carousel = document.createElement('div');
-  const img1 = document.createElement('img');
-  const img2 = document.createElement('img');
-  const img3 = document.createElement('img');
-  const img4 = document.createElement('img');
+  const img = document.createElement('img');
   const rightBtn = document.createElement('div');
   const leftBtn = document.createElement('div');
 
   carousel.classList.add('carousel');
   leftBtn.classList.add('left-button');
   rightBtn.classList.add('right-button');
+  
+  // set an initial carousel image
+  img.setAttribute('id', 'big-image');
+  img.setAttribute('data-id', 0);
+  img.setAttribute('src', imgSources[0]);
+  img.style.display = 'block';
 
-  img1.src = "./assets/carousel/mountains.jpeg";
-  img2.src = "./assets/carousel/computer.jpeg";
-  img3.src = "./assets/carousel/trees.jpeg";
-  img4.src = "./assets/carousel/turntable.jpeg";
-
-  carousel.appendChild(leftBtn);
-  [img1, img2, img3, img4].forEach((img) => {
-    carousel.appendChild(img);
+  // Navigation Event listeners
+  rightBtn.addEventListener('click', (e) => {
+    const bigImg = document.querySelector('#big-image');
+    const nextId = (Number(bigImg.dataset.id) + 1) % imgSources.length;
+    const nextimg = imgSources[nextId];
+    bigImg.setAttribute('src', nextimg);
+    bigImg.setAttribute('data-id', nextid);
   })
 
+  leftBtn.addEventListener('click', (e) => {
+    const bigImg = document.querySelector('#big-image');
+    let prevId = (Number(bigImg.dataset.id) - 1) % imgSources.length;
+    prevId = prevId < 0 ? imgSources.length + prevId : prevId;
+    const previmg = imgSources[prevId];
+    bigImg.setAttribute('src', previmg);
+    bigImg.setAttribute('data-id', prevId);
+  })
+
+  //
+  carousel.appendChild(leftBtn);
+  carousel.appendChild(img);
   carousel.appendChild(rightBtn);
 
   return carousel;
 }
+
+const carouselContainer = document.querySelector('.carousel-container');
+carouselContainer.appendChild(Carousel());
+
